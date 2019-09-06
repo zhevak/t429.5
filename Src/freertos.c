@@ -128,6 +128,8 @@ void StartDefaultTask(void *argument)
   MX_LWIP_Init();
 
   /* USER CODE BEGIN StartDefaultTask */
+  rled_off();
+  
   /* Infinite loop */
   for(;;)
   {

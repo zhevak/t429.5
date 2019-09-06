@@ -13,13 +13,13 @@
 #include "leds.h"
 
 
-void gled_off(void)
+void gled_on(void)
 {
   GLED_GPIO_Port->BSRR = GLED_Pin << 16;
 }
 
 
-void gled_on(void)
+void gled_off(void)
 {
   GLED_GPIO_Port->BSRR = GLED_Pin;
 }
@@ -35,13 +35,13 @@ void gled_toggle(void)
 
 
 
-void rled_off(void)
+void rled_on(void)
 {
   RLED_GPIO_Port->BSRR = RLED_Pin << 16;
 }
 
 
-void rled_on(void)
+void rled_off(void)
 {
   RLED_GPIO_Port->BSRR = RLED_Pin;
 }
