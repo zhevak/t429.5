@@ -143,7 +143,8 @@ Middlewares/Third_Party/LwIP/src/core/ipv6/ip6_frag.c \
 Middlewares/Third_Party/LwIP/src/core/ipv6/mld6.c \
 Middlewares/Third_Party/LwIP/src/core/ipv6/nd6.c \
 Middlewares/Third_Party/LwIP/system/OS/sys_arch.c \
-Middlewares/Third_Party/LwIP/src/apps/mqtt/mqtt.c
+Middlewares/Third_Party/LwIP/src/apps/mqtt/mqtt.c \
+Middlewares/Third_Party/open62541/open62541.c
 
 # ASM sources
 ASM_SOURCES =  \
@@ -192,7 +193,11 @@ AS_DEFS =
 # C defines
 C_DEFS =  \
 -DUSE_HAL_DRIVER \
--DSTM32F429xx
+-DSTM32F429xx \
+-DUA_FREERTOS \
+-DLWIP_TIMEVAL_PRIVATE=0 \
+-DLWIP_COMPAT_MUTEX=0 \
+-DLWIP_POSIX_SOCKETS_IO_NAMES=0
 
 # AS includes
 AS_INCLUDES =  \
@@ -218,13 +223,14 @@ C_INCLUDES =  \
 -IMiddlewares/Third_Party/LwIP/src/include/posix \
 -IMiddlewares/Third_Party/LwIP/src/include/posix/sys \
 -IMiddlewares/Third_Party/LwIP/system/arch \
--IDrivers/CMSIS/Include
-
+-IDrivers/CMSIS/Include \
+-IMiddlewares/Third_Party/open62541
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
 
-CFLAGS = $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
+
+CFLAGS = $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) -fdata-sections -ffunction-sections -Wall 
 
 ifeq ($(DEBUG), 1)
 CFLAGS += -g -gdwarf-2

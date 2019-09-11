@@ -30,6 +30,8 @@
 
 #include "sockets.h"
 #include "ppp_impl.h"
+
+#include "open62541.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -152,6 +154,11 @@ void StartTask02(void *argument)
 #define BUFSIZE   (512)
 #define PORT      (8001)
 
+
+//TODO
+UA_Int32 i = 5;
+UA_Int32 j;
+UA_Int32_copy(&i, &j);
 
   char message[] = "Hello!\n";
   struct sockaddr_in srv, cli;
