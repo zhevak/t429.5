@@ -31,7 +31,6 @@
 #include "sockets.h"
 #include "ppp_impl.h"
 
-#include "open62541.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -126,6 +125,8 @@ osKernelInitialize();
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
+    
+                 
   /* init code for LWIP */
   MX_LWIP_Init();
 
@@ -150,16 +151,47 @@ void StartDefaultTask(void *argument)
 void StartTask02(void *argument)
 {
   /* USER CODE BEGIN StartTask02 */
-#define SVRIP     "172.16.27.179"
-#define BUFSIZE   (512)
-#define PORT      (8001)
 
+//#define SVRIP     "172.16.27.179"
+//#define BUFSIZE   (512)
+#define PORT      (4840)
 
-//TODO
-UA_Int32 i = 5;
-UA_Int32 j;
-UA_Int32_copy(&i, &j);
+  int cli_sockfd, ser_sockfd;
+  socklen_t cli_len, ser_len;
+  struct sockaddr_in cli_addr, ser_addr;
+  
+  ser_sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
+  ser_addr.sin_family = AF_INET;
+  ser_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+  ser_addr. sin_port = htons(4840);
+  
+  ser_len = sizeof (struct sockaddr_in);
+  cli_len = sizeof (struct sockaddr_in);
+  
+  bind(ser_sockfd, (struct sockaddr *) &ser_addr, ser_len);
+  listen(ser_sockfd, 1);
+  
+//  int flags = fcntl(ser_sockfd, F_GETFL, 0);
+//  fcntl(ser_sockfd, F_SETFL, flags | O_NONBLOCK);
+
+gled_toggle();
+
+  while (true)
+  {
+    cli_sockfd = accept(ser_sockfd, (struct sockaddr *) &cli_addr, &cli_len);
+    gled_toggle();
+    
+    if (cli_sockfd != -1)
+    {
+      rled_toggle();      
+      close(cli_sockfd);
+    }
+    
+    osDelay(100);    
+  }
+
+/*
   char message[] = "Hello!\n";
   struct sockaddr_in srv, cli;
   int srvfd;
@@ -191,6 +223,7 @@ UA_Int32_copy(&i, &j);
     sendto(srvfd, message, sizeof message, 0, (struct sockaddr *) &cli, cli_len);
     osDelay(500);
   }
+  */
   /* USER CODE END StartTask02 */
 }
 

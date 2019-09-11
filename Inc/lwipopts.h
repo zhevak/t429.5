@@ -47,12 +47,20 @@
 
 /* LwIP Stack Parameters (modified compared to initialization value in opt.h) -*/
 /* Parameters set in STM32CubeMX LwIP Configuration GUI -*/
+/*----- Default Value for MEMP_NUM_TCP_PCB: 5 ---*/
+#define MEMP_NUM_TCP_PCB 2
+/*----- Default Value for MEM_LIBC_MALLOC: 0 ---*/
+#define MEM_LIBC_MALLOC 1
+/*----- Default Value for MEMP_MEM_MALLOC: 0 ---*/
+#define MEMP_MEM_MALLOC 1
 /*----- Value in opt.h for MEM_ALIGNMENT: 1 -----*/
 #define MEM_ALIGNMENT 4
 /*----- Default Value for MEM_SIZE: 1600 ---*/
 #define MEM_SIZE 2048
 /*----- Value in opt.h for LWIP_ETHERNET: LWIP_ARP || PPPOE_SUPPORT -*/
 #define LWIP_ETHERNET 1
+/*----- Default Value for LWIP_RAW: 0 ---*/
+#define LWIP_RAW 1
 /*----- Value in opt.h for LWIP_DNS_SECURE: (LWIP_DNS_SECURE_RAND_XID | LWIP_DNS_SECURE_NO_MULTIPLE_OUTSTANDING | LWIP_DNS_SECURE_RAND_SRC_PORT) -*/
 #define LWIP_DNS_SECURE 7
 /*----- Value in opt.h for TCP_SND_QUEUELEN: (4*TCP_SND_BUF + (TCP_MSS - 1))/TCP_MSS -----*/
@@ -64,17 +72,17 @@
 /*----- Value in opt.h for TCP_WND_UPDATE_THRESHOLD: LWIP_MIN(TCP_WND/4, TCP_MSS*4) -----*/
 #define TCP_WND_UPDATE_THRESHOLD 536
 /*----- Value in opt.h for TCPIP_THREAD_STACKSIZE: 0 -----*/
-#define TCPIP_THREAD_STACKSIZE 1024
+#define TCPIP_THREAD_STACKSIZE 2048
 /*----- Value in opt.h for TCPIP_THREAD_PRIO: 1 -----*/
 #define TCPIP_THREAD_PRIO 3
 /*----- Value in opt.h for TCPIP_MBOX_SIZE: 0 -----*/
 #define TCPIP_MBOX_SIZE 6
 /*----- Value in opt.h for SLIPIF_THREAD_STACKSIZE: 0 -----*/
-#define SLIPIF_THREAD_STACKSIZE 1024
+#define SLIPIF_THREAD_STACKSIZE 2048
 /*----- Value in opt.h for SLIPIF_THREAD_PRIO: 1 -----*/
 #define SLIPIF_THREAD_PRIO 3
 /*----- Value in opt.h for DEFAULT_THREAD_STACKSIZE: 0 -----*/
-#define DEFAULT_THREAD_STACKSIZE 1024
+#define DEFAULT_THREAD_STACKSIZE 2048
 /*----- Value in opt.h for DEFAULT_THREAD_PRIO: 1 -----*/
 #define DEFAULT_THREAD_PRIO 3
 /*----- Value in opt.h for DEFAULT_UDP_RECVMBOX_SIZE: 0 -----*/
@@ -83,8 +91,10 @@
 #define DEFAULT_TCP_RECVMBOX_SIZE 6
 /*----- Value in opt.h for DEFAULT_ACCEPTMBOX_SIZE: 0 -----*/
 #define DEFAULT_ACCEPTMBOX_SIZE 6
+/*----- Default Value for LWIP_TCPIP_TIMEOUT: 0 ---*/
+#define LWIP_TCPIP_TIMEOUT 1
 /*----- Value in opt.h for RECV_BUFSIZE_DEFAULT: INT_MAX -----*/
-#define RECV_BUFSIZE_DEFAULT 2000000000
+#define RECV_BUFSIZE_DEFAULT 20000
 /*----- Value in opt.h for LWIP_STATS: 1 -----*/
 #define LWIP_STATS 0
 /*----- Value in opt.h for CHECKSUM_GEN_IP: 1 -----*/
