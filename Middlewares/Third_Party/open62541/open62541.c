@@ -38,8 +38,10 @@
 # define _CRT_SECURE_NO_WARNINGS
 #endif
 
-//#include "sockets.h"
-//#include "lwip.h"
+#include "lwip/api.h"
+#include "lwip/inet.h"
+#include "lwip/sockets.h"
+
 #include "open62541.h"
 
 /*********************************** amalgamated original file "/home/x-temp/open62541/deps/queue.h" ***********************************/
@@ -39157,8 +39159,6 @@ static inline int gethostname_freertos(char* name, size_t len){
 #ifdef UNDER_CE
 # define errno WSAGetLastError()
 #endif
-
-#include <errno.h>
 
 #ifdef _WIN32
 # define errno__ WSAGetLastError()
