@@ -24,6 +24,8 @@
 # define _CRT_SECURE_NO_WARNINGS
 #endif
 
+
+#define UA_ARCHITECTURE_FREERTOSLWIP
 #include "open62541.h"
 
 /*********************************** amalgamated original file "/home/cmb/workspace/opcua/open62541/deps/open62541_queue.h" ***********************************/
@@ -56027,8 +56029,8 @@ UA_PubSubTransportLayerUDPMP() {
 
 #ifdef UA_ARCHITECTURE_FREERTOSLWIP
 
-#include <freertos/task.h>
-
+//#include <freertos/task.h>
+#include "task.h"
 /* The current time in UTC time */
 UA_DateTime UA_DateTime_now(void) {
   UA_DateTime microSeconds = ((UA_DateTime)xTaskGetTickCount()) * (1000000 / configTICK_RATE_HZ);
