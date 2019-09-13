@@ -34,7 +34,6 @@
  * memory management pages of http://www.FreeRTOS.org for more information.
  */
 #include <stdlib.h>
-#include <string.h>
 
 /* Defining MPU_WRAPPERS_INCLUDED_FROM_API_FILE prevents task.h from redefining
 all the API functions to use the MPU wrappers.  That should only be done when
@@ -437,16 +436,20 @@ uint8_t *puc;
 
 
 
-
-//==========================================================================================================================
+/*
+ Исходники на функций pvPortCalloc() и pvPortRealloc взяты отсюда:
+ https://github.com/CHERTS/esp8266-devkit/blob/master/Espressif/ESP8266_RTOS_SDK/third_party/freertos/heap_4.c#L485
+*/
+ 
 void *pvPortCalloc(size_t count, size_t size)
 {
   void *p;
 
-  /* allocate 'count' objects of size 'size' */
+  // allocate 'count' objects of size 'size'
   p = pvPortMalloc(count * size);
-  if (p) {
-    /* zero the memory */
+  if (p)
+  {
+    // zero the memory
     memset(p, 0, count * size);
   }
   return p;
@@ -455,21 +458,23 @@ void *pvPortCalloc(size_t count, size_t size)
 
 void *pvPortRealloc(void *mem, size_t newsize)
 {
-    if (newsize == 0) {
-        vPortFree(mem);
-        return NULL;
-    }
+  if (newsize == 0)
+  {
+    vPortFree(mem);
+    return NULL;
+  }
 
-    void *p;
-    p = pvPortMalloc(newsize);
-    if (p) {
-        /* zero the memory */
-        if (mem != NULL) {
-            memcpy(p, mem, newsize);
-            vPortFree(mem);
-        }
+  void *p;
+  p = pvPortMalloc(newsize);
+  if (p)
+  {
+    // zero the memory
+    if (mem != NULL)
+    {
+      memcpy(p, mem, newsize);
+      vPortFree(mem);
     }
-    return p;
+  }
+ 
+  return p;
 }
-
-

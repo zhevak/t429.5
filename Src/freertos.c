@@ -126,6 +126,8 @@ osKernelInitialize();
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
+    
+                 
   /* init code for LWIP */
   MX_LWIP_Init();
 

@@ -1,0 +1,6 @@
+Компиляция и линковка проходят, но с некоторым количеством предупреждений.
+
+arm-none-eabi-size build/t429.5.elf
+   text	   data	    bss	    dec	    hex	filename
+  74020	    128	 149328	 223476	  368f4	build/t429.5.elf
+

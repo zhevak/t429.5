@@ -71,6 +71,12 @@ extern "C" {
 #include <string.h>
 #include <stddef.h>
 
+#include "lwip/tcpip.h"
+#include "lwip/netdb.h"
+#include "lwip/init.h"
+#include "lwip/sockets.h"
+#include "lwip/opt.h"
+
 /* Include stdint.h and stdbool.h or workaround for older Visual Studios */
 #if !defined(_MSC_VER) || _MSC_VER >= 1600
 # include <stdint.h>

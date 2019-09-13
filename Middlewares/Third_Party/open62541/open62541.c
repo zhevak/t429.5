@@ -38,9 +38,6 @@
 # define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#include "lwip/api.h"
-#include "lwip/inet.h"
-#include "lwip/sockets.h"
 
 #include "open62541.h"
 
