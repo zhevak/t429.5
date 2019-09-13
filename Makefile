@@ -196,12 +196,13 @@ AS_DEFS =
 C_DEFS =  \
 -DUSE_HAL_DRIVER \
 -DSTM32F429xx \
--DUA_FREERTOS \
 -DLWIP_SOCKET \
--DLWIP_COMPAT_SOCKETS=2 \
+-DLWIP_COMPAT_SOCKETS=0 \
 -DLWIP_DNS \
 -DSO_REUSE \
+#-DUA_ARCHITECTURE_FREERTOSLWIP
 
+#-DUA_FREERTOS \
 #-DLWIP_POSIX_SOCKETS_IO_NAMES
 
 
@@ -226,11 +227,12 @@ C_INCLUDES =  \
 -IMiddlewares/Third_Party/LwIP/src/include/lwip/priv \
 -IMiddlewares/Third_Party/LwIP/src/include/lwip/prot \
 -IMiddlewares/Third_Party/LwIP/src/include/netif \
--IMiddlewares/Third_Party/LwIP/src/include/posix \
--IMiddlewares/Third_Party/LwIP/src/include/posix/sys \
 -IMiddlewares/Third_Party/LwIP/system/arch \
 -IDrivers/CMSIS/Include \
 -IMiddlewares/Third_Party/open62541
+
+#-IMiddlewares/Third_Party/LwIP/src/include/posix \
+#-IMiddlewares/Third_Party/LwIP/src/include/posix/sys \
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections

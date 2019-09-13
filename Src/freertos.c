@@ -152,15 +152,32 @@ void StartDefaultTask(void *argument)
 void StartTask02(void *argument)
 {
   /* USER CODE BEGIN StartTask02 */
+
+/*
+  UA_Int32 i = 5;
+  UA_Int32 j;
+  UA_Int32_copy(&i, &j);
+*/
+
+  UA_Boolean running = true;
+  
+  UA_ServerConfig *config = UA_ServerConfig_new_default();
+  UA_Server *server = UA_Server_new(config);
+
+  UA_StatusCode retval = UA_Server_run(server, &running);
+  UA_Server_delete(server);
+  UA_ServerConfig_delete(config);
+
+
+  while (true)
+  {
+    ;
+  }
+
+/*
 #define SVRIP     "172.16.27.179"
 #define BUFSIZE   (512)
 #define PORT      (8001)
-
-
-//TODO
-UA_Int32 i = 5;
-UA_Int32 j;
-UA_Int32_copy(&i, &j);
 
   char message[] = "Hello!\n";
   struct sockaddr_in srv, cli;
@@ -193,6 +210,7 @@ UA_Int32_copy(&i, &j);
     sendto(srvfd, message, sizeof message, 0, (struct sockaddr *) &cli, cli_len);
     osDelay(500);
   }
+*/
   /* USER CODE END StartTask02 */
 }
 
