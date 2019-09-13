@@ -143,8 +143,8 @@ Middlewares/Third_Party/LwIP/src/core/ipv6/ip6_frag.c \
 Middlewares/Third_Party/LwIP/src/core/ipv6/mld6.c \
 Middlewares/Third_Party/LwIP/src/core/ipv6/nd6.c \
 Middlewares/Third_Party/LwIP/system/OS/sys_arch.c \
-#Middlewares/Third_Party/LwIP/src/apps/mqtt/mqtt.c \
 Middlewares/Third_Party/open62541/open62541.c
+#Middlewares/Third_Party/LwIP/src/apps/mqtt/mqtt.c \
 
 
 
@@ -198,7 +198,8 @@ C_DEFS =  \
 -DSTM32F429xx \
 -DUA_FREERTOS \
 -DLWIP_SOCKET=1 \
--DLWIP_COMPAT_SOCKETS=2
+-DLWIP_COMPAT_SOCKETS=2 \
+-DUA_ENABLE_AMALGAMATION=1
 #-DLWIP_POSIX_SOCKETS_IO_NAMES=1
 #-DLWIP_TIMEVAL_PRIVATE=0 \
 #-DLWIP_COMPAT_MUTEX=0 \
@@ -236,7 +237,7 @@ ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffuncti
 
 
 CFLAGS = $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) -fdata-sections -ffunction-sections
-# -Wall 
+# -Wall
 
 ifeq ($(DEBUG), 1)
 CFLAGS += -g -gdwarf-2

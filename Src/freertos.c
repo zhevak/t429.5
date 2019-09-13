@@ -58,7 +58,9 @@ osThreadId_t myTask02Handle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
-   
+//TODO
+//static void variables_nodeids(void);
+
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -150,15 +152,13 @@ void StartDefaultTask(void *argument)
 void StartTask02(void *argument)
 {
   /* USER CODE BEGIN StartTask02 */
+
+//TODO
+//variables_nodeids();
+
 #define SVRIP     "172.16.27.179"
 #define BUFSIZE   (512)
 #define PORT      (8001)
-
-
-//TODO
-UA_Int32 i = 5;
-UA_Int32 j;
-UA_Int32_copy(&i, &j);
 
   char message[] = "Hello!\n";
   struct sockaddr_in srv, cli;
@@ -196,7 +196,28 @@ UA_Int32_copy(&i, &j);
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-     
+//TODO
+/*
+static void variables_nodeids(void)
+{
+UA_Int32 i = 5;
+UA_Int32 j;
+UA_Int32_copy(&i, &j);
+
+  UA_NodeId id1 = UA_NODEID_NUMERIC(1, 1234);
+  id1.namespaceIndex = 3;
+  UA_NodeId id2 = UA_NODEID_STRING(1, "testid"); // the string is static
+  UA_Boolean eq = UA_NodeId_equal(&id1, &id2);
+  if (eq)
+    return;
+ 
+  UA_NodeId id3;
+  UA_NodeId_copy(&id2, &id3);
+  UA_NodeId_delete(&id3);
+  UA_NodeId id4 = UA_NODEID_STRING_ALLOC(1, "testid");  // the string is copied to the heap
+  UA_NodeId_delete(&id4);
+}
+*/    
 /* USER CODE END Application */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
