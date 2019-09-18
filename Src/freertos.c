@@ -158,21 +158,18 @@ void StartTask02(void *argument)
   UA_Int32 j;
   UA_Int32_copy(&i, &j);
 */
+static volatile UA_Boolean running = true;
 
-  UA_Boolean running = true;
-  
-  UA_ServerConfig *config = UA_ServerConfig_new_default();
-  UA_Server *server = UA_Server_new(config);
-
-  UA_StatusCode retval = UA_Server_run(server, &running);
-  UA_Server_delete(server);
-  UA_ServerConfig_delete(config);
-
+UA_Server *server = UA_Server_new();
+UA_ServerConfig_setDefault(UA_Server_getConfig(server));
+UA_StatusCode retval = UA_Server_run(server, &running);
 
   while (true)
   {
     ;
   }
+
+UA_Server_delete(server);
 
 /*
 #define SVRIP     "172.16.27.179"

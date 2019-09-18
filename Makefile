@@ -196,14 +196,15 @@ AS_DEFS =
 C_DEFS =  \
 -DUSE_HAL_DRIVER \
 -DSTM32F429xx \
--DLWIP_SOCKET \
 -DLWIP_COMPAT_SOCKETS=0 \
 -DLWIP_DNS \
 -DSO_REUSE \
-#-DUA_ARCHITECTURE_FREERTOSLWIP
+-DUA_ARCHITECTURE_FREERTOSLWIP
 
+#-DLWIP_SOCKET \
 #-DUA_FREERTOS \
 #-DLWIP_POSIX_SOCKETS_IO_NAMES
+#-DUA_ARCHITECTURE_FREERTOSLWIP \
 
 
 # AS includes
@@ -238,8 +239,7 @@ C_INCLUDES =  \
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
 
 
-CFLAGS = $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) -fdata-sections -ffunction-sections
-# -Wall 
+CFLAGS = $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) -fdata-sections -ffunction-sections -Wall 
 
 ifeq ($(DEBUG), 1)
 CFLAGS += -g -gdwarf-2
