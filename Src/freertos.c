@@ -158,18 +158,34 @@ void StartTask02(void *argument)
   UA_Int32 j;
   UA_Int32_copy(&i, &j);
 */
-static volatile UA_Boolean running = true;
+  static volatile UA_Boolean running = true;
 
-UA_Server *server = UA_Server_new();
-UA_ServerConfig_setDefault(UA_Server_getConfig(server));
-UA_StatusCode retval = UA_Server_run(server, &running);
+  UA_Server *server = UA_Server_new();
+  UA_ServerConfig_setDefault(UA_Server_getConfig(server));
+
+/*  
+  UA_ServerConfig *config = UA_Server_getConfig(server);
+  // TODO 2019.09.18 задать IP для сервера
+  char ip[] = "172.16.27.126";
+  UA_String ua_ip;
+  ua_ip.length = strlen(ip);
+  ua_ip.data = (UA_Byte *) ip;
+  UA_ServerConfig_setCustomHostname(config, ua_ip);
+  
+  UA_ServerConfig_setDefault(config);
+*/  
+
+  UA_StatusCode retval = UA_Server_run(server, &running);
+  if (retval == 0)
+    gled_on();
 
   while (true)
   {
-    ;
+    rled_toggle();
+    osDelay(200);
   }
 
-UA_Server_delete(server);
+//UA_Server_delete(server);
 
 /*
 #define SVRIP     "172.16.27.179"
