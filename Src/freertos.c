@@ -175,10 +175,11 @@ void StartTask02(void *argument)
   UA_ServerConfig_setDefault(config);
 */  
 
+/*
   UA_StatusCode retval = UA_Server_run(server, &running);
   if (retval == 0)
     gled_on();
-
+*/
   while (true)
   {
     rled_toggle();
