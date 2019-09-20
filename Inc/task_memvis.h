@@ -15,6 +15,8 @@
 
 
 
+void memvis(void);
+
 
 
 #endif  // __MEMVIS_H__

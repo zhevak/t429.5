@@ -1,13 +1,14 @@
 #MicroXplorer Configuration settings - do not modify
-ETH.IPParameters=MediaInterface,PHY_Name_RMII,MACAddr
+ETH.IPParameters=MediaInterface,PHY_Name_RMII,MACAddr,PhyAddress
 ETH.MACAddr=00\:80\:E1\:12\:34\:56
 ETH.MediaInterface=ETH_MEDIA_INTERFACE_RMII
 ETH.PHY_Name_RMII=DP83848_PHY_ADDRESS
+ETH.PhyAddress=1
 FREERTOS.FootprintOK=false
 FREERTOS.IPParameters=Tasks01,configMINIMAL_STACK_SIZE,FootprintOK,configTOTAL_HEAP_SIZE
-FREERTOS.Tasks01=defaultTask,24,2000,StartDefaultTask,Default,NULL,Dynamic,NULL,NULL;myTask02,8,2000,StartTask02,Default,NULL,Dynamic,NULL,NULL
+FREERTOS.Tasks01=defaultTask,24,2000,StartDefaultTask,Default,NULL,Dynamic,NULL,NULL;myTask02,8,2000,StartTask02,Default,NULL,Dynamic,NULL,NULL;myTask03,8,2000,StartTask03,Default,NULL,Dynamic,NULL,NULL
 FREERTOS.configMINIMAL_STACK_SIZE=2000
-FREERTOS.configTOTAL_HEAP_SIZE=20000
+FREERTOS.configTOTAL_HEAP_SIZE=30000
 File.Version=6
 KeepUserPlacement=true
 LWIP.ARP_QUEUEING=1

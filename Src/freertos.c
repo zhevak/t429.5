@@ -27,11 +27,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */     
 #include "leds.h"
+#include "task_memvis.h"
 
-#include "sockets.h"
-#include "ppp_impl.h"
-
-#include "open62541.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,6 +52,7 @@
 /* USER CODE END Variables */
 osThreadId_t defaultTaskHandle;
 osThreadId_t myTask02Handle;
+osThreadId_t myTask03Handle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -63,6 +61,7 @@ osThreadId_t myTask02Handle;
 
 void StartDefaultTask(void *argument);
 void StartTask02(void *argument);
+void StartTask03(void *argument);
 
 extern void MX_LWIP_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -111,6 +110,14 @@ osKernelInitialize();
   };
   myTask02Handle = osThreadNew(StartTask02, NULL, &myTask02_attributes);
 
+  /* definition and creation of myTask03 */
+  const osThreadAttr_t myTask03_attributes = {
+    .name = "myTask03",
+    .priority = (osPriority_t) osPriorityLow,
+    .stack_size = 2000
+  };
+  myTask03Handle = osThreadNew(StartTask03, NULL, &myTask03_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -132,12 +139,12 @@ void StartDefaultTask(void *argument)
   MX_LWIP_Init();
 
   /* USER CODE BEGIN StartDefaultTask */
-  rled_off();
   
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    //gled_toggle();
+    osDelay(100);
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -153,79 +160,33 @@ void StartTask02(void *argument)
 {
   /* USER CODE BEGIN StartTask02 */
 
-/*
-  UA_Int32 i = 5;
-  UA_Int32 j;
-  UA_Int32_copy(&i, &j);
-*/
-  static volatile UA_Boolean running = true;
+  memvis();
 
-  UA_Server *server = UA_Server_new();
-  UA_ServerConfig_setDefault(UA_Server_getConfig(server));
-
-/*  
-  UA_ServerConfig *config = UA_Server_getConfig(server);
-  // TODO 2019.09.18 задать IP для сервера
-  char ip[] = "172.16.27.126";
-  UA_String ua_ip;
-  ua_ip.length = strlen(ip);
-  ua_ip.data = (UA_Byte *) ip;
-  UA_ServerConfig_setCustomHostname(config, ua_ip);
-  
-  UA_ServerConfig_setDefault(config);
-*/  
-
-/*
-  UA_StatusCode retval = UA_Server_run(server, &running);
-  if (retval == 0)
-    gled_on();
-*/
   while (true)
   {
-    rled_toggle();
+    //rled_toggle();
     osDelay(200);
   }
 
-//UA_Server_delete(server);
+  /* USER CODE END StartTask02 */
+}
 
-/*
-#define SVRIP     "172.16.27.179"
-#define BUFSIZE   (512)
-#define PORT      (8001)
-
-  char message[] = "Hello!\n";
-  struct sockaddr_in srv, cli;
-  int srvfd;
-  socklen_t cli_len = sizeof (cli);
-  int recv_len;
-  char buf[BUFSIZE];
-  srvfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-
-  srv.sin_family = AF_INET;
-  srv.sin_addr.s_addr = htonl(INADDR_ANY);
-  srv.sin_port = htons(PORT);
-  
-  bind(srvfd, (struct sockaddr *) &srv, sizeof (srv));
-
+/* USER CODE BEGIN Header_StartTask03 */
+/**
+* @brief Function implementing the myTask03 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTask03 */
+void StartTask03(void *argument)
+{
+  /* USER CODE BEGIN StartTask03 */
+  /* Infinite loop */
   for(;;)
   {
-    if ((recv_len = recvfrom(srvfd, buf, BUFSIZE, 0, (struct sockaddr *) &cli, &cli_len)) > 0)
-    {
-      buf[recv_len] = '\0';	
-      
-      switch (buf[0])
-      {
-        case 'g': gled_off(); break;
-        case 'r': rled_off(); break;
-        case 'G': gled_on(); break;
-        case 'R': rled_on(); break;
-      }
-    }
-    sendto(srvfd, message, sizeof message, 0, (struct sockaddr *) &cli, cli_len);
-    osDelay(500);
+    osDelay(1);
   }
-*/
-  /* USER CODE END StartTask02 */
+  /* USER CODE END StartTask03 */
 }
 
 /* Private application code --------------------------------------------------*/
