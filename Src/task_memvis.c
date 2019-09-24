@@ -29,7 +29,7 @@ typedef struct {
 
 static request_t request;
 
-#define TXBUFSIZE (1024)
+#define TXBUFSIZE (512)
 static uint8_t txBuf[TXBUFSIZE];
 
 

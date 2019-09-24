@@ -26,8 +26,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */     
-#include "leds.h"
-#include "task_memvis.h"
 
 /* USER CODE END Includes */
 
@@ -51,8 +49,6 @@
 
 /* USER CODE END Variables */
 osThreadId_t defaultTaskHandle;
-osThreadId_t myTask02Handle;
-osThreadId_t myTask03Handle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -60,10 +56,7 @@ osThreadId_t myTask03Handle;
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
-void StartTask02(void *argument);
-void StartTask03(void *argument);
 
-extern void MX_LWIP_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /**
@@ -98,25 +91,9 @@ osKernelInitialize();
   const osThreadAttr_t defaultTask_attributes = {
     .name = "defaultTask",
     .priority = (osPriority_t) osPriorityNormal,
-    .stack_size = 2000
+    .stack_size = 128
   };
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
-
-  /* definition and creation of myTask02 */
-  const osThreadAttr_t myTask02_attributes = {
-    .name = "myTask02",
-    .priority = (osPriority_t) osPriorityLow,
-    .stack_size = 2000
-  };
-  myTask02Handle = osThreadNew(StartTask02, NULL, &myTask02_attributes);
-
-  /* definition and creation of myTask03 */
-  const osThreadAttr_t myTask03_attributes = {
-    .name = "myTask03",
-    .priority = (osPriority_t) osPriorityLow,
-    .stack_size = 2000
-  };
-  myTask03Handle = osThreadNew(StartTask03, NULL, &myTask03_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -134,59 +111,15 @@ osKernelInitialize();
 void StartDefaultTask(void *argument)
 {
     
-                 
-  /* init code for LWIP */
-  MX_LWIP_Init();
+    
 
   /* USER CODE BEGIN StartDefaultTask */
-  
-  /* Infinite loop */
-  for(;;)
-  {
-    //gled_toggle();
-    osDelay(100);
-  }
-  /* USER CODE END StartDefaultTask */
-}
-
-/* USER CODE BEGIN Header_StartTask02 */
-/**
-* @brief Function implementing the myTask02 thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_StartTask02 */
-void StartTask02(void *argument)
-{
-  /* USER CODE BEGIN StartTask02 */
-
-  memvis();
-
-  while (true)
-  {
-    //rled_toggle();
-    osDelay(200);
-  }
-
-  /* USER CODE END StartTask02 */
-}
-
-/* USER CODE BEGIN Header_StartTask03 */
-/**
-* @brief Function implementing the myTask03 thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_StartTask03 */
-void StartTask03(void *argument)
-{
-  /* USER CODE BEGIN StartTask03 */
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
   }
-  /* USER CODE END StartTask03 */
+  /* USER CODE END StartDefaultTask */
 }
 
 /* Private application code --------------------------------------------------*/
