@@ -53,7 +53,7 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOB, RLED_Pin|GLED_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : PGPin PGPin */
-  GPIO_InitStruct.Pin = MODE1_Pin|MODE2_Pin;
+  GPIO_InitStruct.Pin = BTN2_Pin|BTN3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);

@@ -49,6 +49,7 @@
 .global  g_pfnVectors
 .global  Default_Handler
 
+
 /* start address for the initialization values of the .data section. 
 defined in linker script */
 .word  _sidata
@@ -76,6 +77,25 @@ defined in linker script */
   .type  Reset_Handler, %function
 Reset_Handler: 
   ldr   sp, =_estack       /* set stack pointer */
+  
+  /* Обнуление RAM */
+  movs  r3, #0
+  ldr  r1, =0x20000000
+  ldr  r2, =0x20030000
+ramloop:
+  str  r3, [r1], #4
+  cmp  r1, r2
+  bcc  ramloop
+  
+ 
+  /* Обнуление CCMRAM */
+  ldr  r1, =0x10000000
+  ldr  r2, =0x10010000
+ccmramloop:
+  str  r3, [r1], #4
+  cmp  r1, r2
+  bcc  ccmramloop
+  
  
 /* Copy the data segment initializers from flash to SRAM */  
   movs  r1, #0
