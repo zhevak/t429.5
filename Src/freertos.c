@@ -27,7 +27,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */     
 #include "leds.h"
-#include "task_memvis.h"
+#include "vismem.h"
+#include "ttudp.h"
+
 
 /* USER CODE END Includes */
 
@@ -52,6 +54,7 @@
 /* USER CODE END Variables */
 osThreadId_t defaultTaskHandle;
 osThreadId_t myTask02Handle;
+osThreadId_t taskTTUdpHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -60,6 +63,7 @@ osThreadId_t myTask02Handle;
 
 void StartDefaultTask(void *argument);
 void StartTask02(void *argument);
+void StartTask03(void *argument);
 
 extern void MX_LWIP_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -108,6 +112,14 @@ osKernelInitialize();
   };
   myTask02Handle = osThreadNew(StartTask02, NULL, &myTask02_attributes);
 
+  /* definition and creation of taskTTUdp */
+  const osThreadAttr_t taskTTUdp_attributes = {
+    .name = "taskTTUdp",
+    .priority = (osPriority_t) osPriorityLow,
+    .stack_size = 1000
+  };
+  taskTTUdpHandle = osThreadNew(StartTask03, NULL, &taskTTUdp_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -149,14 +161,32 @@ void StartDefaultTask(void *argument)
 void StartTask02(void *argument)
 {
   /* USER CODE BEGIN StartTask02 */
-  memvis();
+  vismem();
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
-    rled_toggle();
+    osDelay(100);
   }
   /* USER CODE END StartTask02 */
+}
+
+/* USER CODE BEGIN Header_StartTask03 */
+/**
+* @brief Function implementing the taskTTUdp thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTask03 */
+void StartTask03(void *argument)
+{
+  /* USER CODE BEGIN StartTask03 */
+  ttudp();
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(100);
+  }
+  /* USER CODE END StartTask03 */
 }
 
 /* Private application code --------------------------------------------------*/
