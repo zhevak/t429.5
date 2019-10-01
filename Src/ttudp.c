@@ -17,9 +17,10 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+#include "adc.h"
+#include "stm32f4xx_it.h"
 #include "leds.h"
 
-#include "ttudp.h"
 
 
 
@@ -35,7 +36,6 @@ static uint8_t rxBuf[RXBUFSIZE];
 //static uint8_t txBuf[TXBUFSIZE];
 //static request_t *request = (request_t *) rxBuf;
      
-
 
 
 void ttudp(void)
@@ -57,7 +57,8 @@ void ttudp(void)
   ser_addr.sin_addr.s_addr = htonl(INADDR_ANY);
   ser_addr.sin_port = htons(8001);
   ser_len = sizeof (struct sockaddr_in);
-  
+
+ 
 rled_off();
 
   // LwIP/src/include/lwip/sockets.h:514:#define bind(s,name,namelen)  lwip_bind(s,name,namelen)
@@ -76,8 +77,8 @@ rled_on();
       }
       else if (strncmp((const char *) rxBuf, "temp", 4) == 0)
       {
-        //txbuf =
-        //sendto(sfd, txBuf, len, 0, (const struct sockaddr *) &cli_addr, cli_len); 
+        value = getTemperature();
+        sendto(sfd, (void *) &value, sizeof value, 0, (const struct sockaddr *) &cli_addr, cli_len); 
       }
 rled_off();
     }  
