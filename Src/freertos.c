@@ -191,8 +191,8 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
   if(hadc->Instance == ADC1) //check if the interrupt comes from ACD1
   {
-    uint32_t adc = HAL_ADC_GetValue(&hadc1);
-    temperature = (33000 * adc / 4096 - 7600) / 25  + 250;
+    int32_t adc = (int32_t) HAL_ADC_GetValue(&hadc1);
+    temperature = (330000 * adc / 4096 - 76000) / 25 + 250;
     gled_toggle();
   }
 }
