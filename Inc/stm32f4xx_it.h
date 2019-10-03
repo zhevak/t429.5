@@ -36,7 +36,6 @@
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-extern uint32_t temperature;
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
@@ -54,7 +53,6 @@ void ADC_IRQHandler(void);
 void TIM2_IRQHandler(void);
 void ETH_IRQHandler(void);
 /* USER CODE BEGIN EFP */
-uint32_t getTemperature(void);
 /* USER CODE END EFP */
 
 #ifdef __cplusplus

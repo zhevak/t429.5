@@ -14,6 +14,7 @@
 #define __TTUDP_H__
 
 
+extern uint32_t temperature;
 
 void ttudp(void);
 

@@ -37,6 +37,9 @@ static uint8_t rxBuf[RXBUFSIZE];
 //static request_t *request = (request_t *) rxBuf;
      
 
+// Температура чипа
+uint32_t temperature;
+
 
 void ttudp(void)
 {
@@ -69,7 +72,6 @@ rled_off();
   {
     if (recvfrom(sfd, rxBuf, RXBUFSIZE, MSG_WAITALL, (struct sockaddr *) &cli_addr, &cli_len) == RXBUFSIZE)
     {
-rled_on();
       if (strncmp((const char *) rxBuf, "time", 4) == 0)
       {
         value = (uint32_t) xTaskGetTickCount();  // uint32_t <- TickType_t
@@ -77,10 +79,10 @@ rled_on();
       }
       else if (strncmp((const char *) rxBuf, "temp", 4) == 0)
       {
-        value = getTemperature();
-        sendto(sfd, (void *) &value, sizeof value, 0, (const struct sockaddr *) &cli_addr, cli_len); 
-      }
+rled_on();
+        sendto(sfd, (void *) &temperature, sizeof temperature, 0, (const struct sockaddr *) &cli_addr, cli_len); 
 rled_off();
+      }
     }  
   }  // while(1)
 }

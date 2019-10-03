@@ -25,33 +25,29 @@
 #include "cmsis_os.h"
 
 /* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */     
+/* USER CODE BEGIN Includes */
+#include "adc.h"
 #include "leds.h"
 #include "vismem.h"
 #include "ttudp.h"
-
-
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-
 /* USER CODE END Variables */
+
 osThreadId_t defaultTaskHandle;
 osThreadId_t myTask02Handle;
 osThreadId_t taskTTUdpHandle;
@@ -141,11 +137,11 @@ void StartDefaultTask(void *argument)
   MX_LWIP_Init();
 
   /* USER CODE BEGIN StartDefaultTask */
-  
+
   /* Infinite loop */
   for(;;)
   {
-    gled_toggle();
+    HAL_ADC_Start_IT(&hadc1);
     osDelay(100);
   }
   /* USER CODE END StartDefaultTask */
@@ -191,7 +187,15 @@ void StartTask03(void *argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-     
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
+{
+  if(hadc->Instance == ADC1) //check if the interrupt comes from ACD1
+  {
+    uint32_t adc = HAL_ADC_GetValue(&hadc1);
+    temperature = (33000 * adc / 4096 - 7600) / 25  + 250;
+    gled_toggle();
+  }
+}
 /* USER CODE END Application */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -25,8 +25,6 @@
 
 ADC_HandleTypeDef hadc1;
 
-
-
 /* ADC1 init function */
 void MX_ADC1_Init(void)
 {
@@ -98,7 +96,6 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
   /* USER CODE END ADC1_MspDeInit 1 */
   }
 } 
-
 
 /* USER CODE BEGIN 1 */
 /* USER CODE END 1 */

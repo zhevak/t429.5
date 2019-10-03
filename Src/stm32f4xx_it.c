@@ -41,7 +41,6 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-uint32_t temperature;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -165,11 +164,8 @@ void DebugMon_Handler(void)
 void ADC_IRQHandler(void)
 {
   /* USER CODE BEGIN ADC_IRQn 0 */
-  temperature = HAL_ADC_GetValue(&hadc1);
   /* USER CODE END ADC_IRQn 0 */
-
   HAL_ADC_IRQHandler(&hadc1);
-
   /* USER CODE BEGIN ADC_IRQn 1 */
   /* USER CODE END ADC_IRQn 1 */
 }
@@ -203,9 +199,5 @@ void ETH_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-uint32_t getTemperature(void)
-{
-  return temperature;
-}
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
