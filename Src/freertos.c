@@ -25,11 +25,12 @@
 #include "cmsis_os.h"
 
 /* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
+/* USER CODE BEGIN Includes */     
 #include "adc.h"
 #include "leds.h"
 #include "vismem.h"
-#include "ttudp.h"
+#include "tt_udp.h"
+#include "ev_tcp.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,10 +48,10 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
-
 osThreadId_t defaultTaskHandle;
 osThreadId_t myTask02Handle;
-osThreadId_t taskTTUdpHandle;
+osThreadId_t taskUdpHandle;
+osThreadId_t taskTCPHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -60,6 +61,7 @@ osThreadId_t taskTTUdpHandle;
 void StartDefaultTask(void *argument);
 void StartTask02(void *argument);
 void StartTask03(void *argument);
+void StartTask04(void *argument);
 
 extern void MX_LWIP_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -108,13 +110,21 @@ osKernelInitialize();
   };
   myTask02Handle = osThreadNew(StartTask02, NULL, &myTask02_attributes);
 
-  /* definition and creation of taskTTUdp */
-  const osThreadAttr_t taskTTUdp_attributes = {
-    .name = "taskTTUdp",
+  /* definition and creation of taskUdp */
+  const osThreadAttr_t taskUdp_attributes = {
+    .name = "taskUdp",
     .priority = (osPriority_t) osPriorityLow,
     .stack_size = 1000
   };
-  taskTTUdpHandle = osThreadNew(StartTask03, NULL, &taskTTUdp_attributes);
+  taskUdpHandle = osThreadNew(StartTask03, NULL, &taskUdp_attributes);
+
+  /* definition and creation of taskTCP */
+  const osThreadAttr_t taskTCP_attributes = {
+    .name = "taskTCP",
+    .priority = (osPriority_t) osPriorityLow,
+    .stack_size = 1000
+  };
+  taskTCPHandle = osThreadNew(StartTask04, NULL, &taskTCP_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -137,7 +147,9 @@ void StartDefaultTask(void *argument)
   MX_LWIP_Init();
 
   /* USER CODE BEGIN StartDefaultTask */
-
+  rled_off();
+  gled_off();
+    
   /* Infinite loop */
   for(;;)
   {
@@ -176,13 +188,32 @@ void StartTask02(void *argument)
 void StartTask03(void *argument)
 {
   /* USER CODE BEGIN StartTask03 */
-  ttudp();
+  tt_udp();
   /* Infinite loop */
   for(;;)
   {
     osDelay(100);
   }
   /* USER CODE END StartTask03 */
+}
+
+/* USER CODE BEGIN Header_StartTask04 */
+/**
+* @brief Function implementing the taskTCP thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTask04 */
+void StartTask04(void *argument)
+{
+  /* USER CODE BEGIN StartTask04 */
+  ev_tcp();
+  /* Infinite loop */  
+  for(;;)
+  {
+    osDelay(100);
+  }
+  /* USER CODE END StartTask04 */
 }
 
 /* Private application code --------------------------------------------------*/
