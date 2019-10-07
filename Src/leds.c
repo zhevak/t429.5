@@ -13,59 +13,39 @@
 #include "leds.h"
 
 
-void gled_on(void)
+inline void gled_on(void)
 {
-  GLED_GPIO_Port->BSRR = GLED_Pin << 16;
+  HAL_GPIO_WritePin(GLED_GPIO_Port, GLED_Pin, GPIO_PIN_RESET);
 }
 
 
-void gled_off(void)
+inline void gled_off(void)
 {
-  GLED_GPIO_Port->BSRR = GLED_Pin;
+  HAL_GPIO_WritePin(GLED_GPIO_Port, GLED_Pin, GPIO_PIN_SET);
 }
 
 
-void gled_toggle(void)
+inline void gled_toggle(void)
 {
-  if ((GLED_GPIO_Port->ODR & GLED_Pin) == 0)
-    GLED_GPIO_Port->BSRR = GLED_Pin;
-  else
-    GLED_GPIO_Port->BSRR = GLED_Pin << 16;
-}
-
-
-
-void rled_on(void)
-{
-  RLED_GPIO_Port->BSRR = RLED_Pin << 16;
-}
-
-
-void rled_off(void)
-{
-  RLED_GPIO_Port->BSRR = RLED_Pin;
-}
-
-
-void rled_toggle(void)
-{
-  if ((RLED_GPIO_Port->ODR & RLED_Pin) == 0)
-    RLED_GPIO_Port->BSRR = RLED_Pin;
-  else
-    RLED_GPIO_Port->BSRR = RLED_Pin << 16;
+  HAL_GPIO_TogglePin(GLED_GPIO_Port, GLED_Pin);
 }
 
 
 
-
-bool is_gled(void)
+inline void rled_on(void)
 {
-  return ((GLED_GPIO_Port->ODR & GLED_Pin) == 0);
+  HAL_GPIO_WritePin(RLED_GPIO_Port, RLED_Pin, GPIO_PIN_RESET);
 }
 
 
-bool is_rled(void)
+inline void rled_off(void)
 {
-  return ((RLED_GPIO_Port->ODR & RLED_Pin) == 0);
+  HAL_GPIO_WritePin(RLED_GPIO_Port, RLED_Pin, GPIO_PIN_SET);
+}
+
+
+inline void rled_toggle(void)
+{
+  HAL_GPIO_TogglePin(RLED_GPIO_Port, RLED_Pin);
 }
 

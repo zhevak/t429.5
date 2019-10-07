@@ -26,9 +26,6 @@ void rled_on(void);
 void rled_off(void);
 void rled_toggle(void);
 
-bool is_gled(void);
-bool is_rled(void);
-
 
 
 #endif  // __LEDS_H__
