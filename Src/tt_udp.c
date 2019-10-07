@@ -1,5 +1,5 @@
 /**
-@file    ttudp.c
+@file    tt_udp.c
 @version 0.0
 @date    2019.10.01
 
@@ -21,6 +21,7 @@
 #include "stm32f4xx_it.h"
 #include "leds.h"
 
+#include "tt_udp.h"
 
 
 
@@ -41,7 +42,7 @@ static uint8_t rxBuf[RXBUFSIZE];
 uint32_t temperature;
 
 
-void ttudp(void)
+void tt_udp(void)
 {
   int sfd;
   socklen_t cli_len, ser_len;

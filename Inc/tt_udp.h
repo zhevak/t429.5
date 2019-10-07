@@ -1,5 +1,5 @@
 /**
-@file    ttudp.h
+@file    tt_udp.h
 @version 0.0
 @date    2019.10.01
 
@@ -10,14 +10,14 @@
 */
 
 
-#ifndef __TTUDP_H__
-#define __TTUDP_H__
+#ifndef __TT_UDP_H__
+#define __TT_UDP_H__
 
 
 extern uint32_t temperature;
 
-void ttudp(void);
+void tt_udp(void);
 
 
 
-#endif  // __TTUDP_H__
+#endif  // __TT_UDP_H__

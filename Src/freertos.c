@@ -25,11 +25,11 @@
 #include "cmsis_os.h"
 
 /* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
+/* USER CODE BEGIN Includes */     
 #include "adc.h"
 #include "leds.h"
 #include "vismem.h"
-#include "ttudp.h"
+#include "tt_udp.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,10 +47,10 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
-
 osThreadId_t defaultTaskHandle;
 osThreadId_t myTask02Handle;
 osThreadId_t taskTTUdpHandle;
+osThreadId_t myTask04Handle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -60,6 +60,7 @@ osThreadId_t taskTTUdpHandle;
 void StartDefaultTask(void *argument);
 void StartTask02(void *argument);
 void StartTask03(void *argument);
+void StartTask04(void *argument);
 
 extern void MX_LWIP_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -115,6 +116,14 @@ osKernelInitialize();
     .stack_size = 1000
   };
   taskTTUdpHandle = osThreadNew(StartTask03, NULL, &taskTTUdp_attributes);
+
+  /* definition and creation of myTask04 */
+  const osThreadAttr_t myTask04_attributes = {
+    .name = "myTask04",
+    .priority = (osPriority_t) osPriorityLow,
+    .stack_size = 1000
+  };
+  myTask04Handle = osThreadNew(StartTask04, NULL, &myTask04_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -176,13 +185,31 @@ void StartTask02(void *argument)
 void StartTask03(void *argument)
 {
   /* USER CODE BEGIN StartTask03 */
-  ttudp();
+  tt_udp();
   /* Infinite loop */
   for(;;)
   {
     osDelay(100);
   }
   /* USER CODE END StartTask03 */
+}
+
+/* USER CODE BEGIN Header_StartTask04 */
+/**
+* @brief Function implementing the myTask04 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTask04 */
+void StartTask04(void *argument)
+{
+  /* USER CODE BEGIN StartTask04 */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartTask04 */
 }
 
 /* Private application code --------------------------------------------------*/
