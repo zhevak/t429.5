@@ -146,6 +146,7 @@ Middlewares/Third_Party/LwIP/src/apps/mqtt/mqtt.c \
 Src/leds.c \
 Src/vismem.c \
 Src/tt_udp.c \
+Src/ev.c \
 Src/adc.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c

@@ -30,6 +30,7 @@
 #include "leds.h"
 #include "vismem.h"
 #include "tt_udp.h"
+#include "ev.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -204,6 +205,7 @@ void StartTask03(void *argument)
 void StartTask04(void *argument)
 {
   /* USER CODE BEGIN StartTask04 */
+  ev_clear();
   /* Infinite loop */
   for(;;)
   {
