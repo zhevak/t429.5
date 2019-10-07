@@ -75,7 +75,7 @@ void vismem(void)
   if (bind(sfd, (struct sockaddr*) &ser_addr, ser_len) < 0)
     return;
     
-rled_off();
+//rled_off();
 
   while (1)
   {
@@ -84,7 +84,7 @@ rled_off();
       uint8_t *p   = (uint8_t *) request->start;
       uint32_t len = request->length;
 
-rled_on();
+//rled_on();
       if (len <= TXBUFSIZE)
         for (int i = 0; i < len; i++)
           txBuf[i] = *p++;
@@ -92,7 +92,7 @@ rled_on();
         memset(txBuf, 0, TXBUFSIZE);
 
       sendto(sfd, txBuf, len, 0, (const struct sockaddr *) &cli_addr, cli_len); 
-rled_off();
+//rled_off();
     }
   }  // while(1)
 }

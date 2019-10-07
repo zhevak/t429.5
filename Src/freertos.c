@@ -209,6 +209,7 @@ void StartTask04(void *argument)
   /* Infinite loop */
   for(;;)
   {
+    ev_checking();
     osDelay(1);
   }
   /* USER CODE END StartTask04 */
@@ -222,7 +223,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
   {
     int32_t adc = (int32_t) HAL_ADC_GetValue(&hadc1);
     temperature = (330000 * adc / 4096 - 76000) / 25 + 250;
-    gled_toggle();
+    // gled_toggle();
   }
 }
 /* USER CODE END Application */

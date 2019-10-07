@@ -22,25 +22,39 @@ void ev_clear(void)
 {
   ev1 = false;
   ev2 = false;   
-  rled_off();
   gled_off();
+  rled_off();
 }
 
 
-void ev_check(void)
-{  
+/**
+ * ev_checking()
+ * Проверка состояния кнопок (Кнопки эмулируют события)
+*/
+void ev_checking(void)
+{
+  if (HAL_GPIO_ReadPin(BTN2_GPIO_Port, BTN2_Pin) == GPIO_PIN_RESET)
+  {
+    ev1 = true;
+    gled_on();
+  }
+  
+  if (HAL_GPIO_ReadPin(BTN3_GPIO_Port, BTN3_Pin) == GPIO_PIN_RESET)
+  {
+    ev2 = true;
+    rled_on();
+  }
 }
 
 
-
-bool is_ev1(void)
+bool ev_is1(void)
 {
   return ev1;
 }
 
 
 
-bool is_ev2(void)
+bool ev_is2(void)
 {
   return ev2;
 }

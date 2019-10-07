@@ -63,7 +63,7 @@ void tt_udp(void)
   ser_len = sizeof (struct sockaddr_in);
 
  
-rled_off();
+//rled_off();
 
   // LwIP/src/include/lwip/sockets.h:514:#define bind(s,name,namelen)  lwip_bind(s,name,namelen)
   if (bind(sfd, (struct sockaddr*) &ser_addr, ser_len) < 0)
@@ -80,9 +80,9 @@ rled_off();
       }
       else if (strncmp((const char *) rxBuf, "temp", 4) == 0)
       {
-rled_on();
+//rled_on();
         sendto(sfd, (void *) &temperature, sizeof temperature, 0, (const struct sockaddr *) &cli_addr, cli_len); 
-rled_off();
+//rled_off();
       }
     }  
   }  // while(1)

@@ -16,9 +16,9 @@
 
 
 void ev_clear(void);
-void ev_check(void);
-_Bool is_ev1(void);
-_Bool is_ev2(void);
+void ev_checking(void);
+bool ev_is1(void);
+bool ev_is2(void);
 
 
 
