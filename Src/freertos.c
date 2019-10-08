@@ -132,6 +132,8 @@ osKernelInitialize();
 
 }
 
+
+
 /* USER CODE BEGIN Header_StartDefaultTask */
 /**
   * @brief  Function implementing the defaultTask thread.
@@ -157,6 +159,8 @@ void StartDefaultTask(void *argument)
   /* USER CODE END StartDefaultTask */
 }
 
+
+
 /* USER CODE BEGIN Header_StartTask02 */
 /**
 * @brief Function implementing the myTask02 thread.
@@ -175,6 +179,8 @@ void StartTask02(void *argument)
   }
   /* USER CODE END StartTask02 */
 }
+
+
 
 /* USER CODE BEGIN Header_StartTask03 */
 /**
@@ -195,6 +201,8 @@ void StartTask03(void *argument)
   /* USER CODE END StartTask03 */
 }
 
+
+
 /* USER CODE BEGIN Header_StartTask04 */
 /**
 * @brief Function implementing the myTask04 thread.
@@ -214,6 +222,8 @@ void StartTask04(void *argument)
   }
   /* USER CODE END StartTask04 */
 }
+
+
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
