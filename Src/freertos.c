@@ -30,6 +30,10 @@
 #include "leds.h"
 #include "vismem.h"
 #include "tt_udp.h"
+
+// TODO:
+#include "bl.h"
+
 #include "ev.h"
 /* USER CODE END Includes */
 
@@ -52,6 +56,7 @@ osThreadId_t defaultTaskHandle;
 osThreadId_t myTask02Handle;
 osThreadId_t taskTTUdpHandle;
 osThreadId_t myTask04Handle;
+osThreadId_t myTask05Handle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -62,6 +67,7 @@ void StartDefaultTask(void *argument);
 void StartTask02(void *argument);
 void StartTask03(void *argument);
 void StartTask04(void *argument);
+void StartTask05(void *argument);
 
 extern void MX_LWIP_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -75,7 +81,7 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
        
   /* USER CODE END Init */
-osKernelInitialize();
+  osKernelInitialize();
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
@@ -126,13 +132,19 @@ osKernelInitialize();
   };
   myTask04Handle = osThreadNew(StartTask04, NULL, &myTask04_attributes);
 
+  /* definition and creation of myTask05 */
+  const osThreadAttr_t myTask05_attributes = {
+    .name = "myTask05",
+    .priority = (osPriority_t) osPriorityLow,
+    .stack_size = 1000
+  };
+  myTask05Handle = osThreadNew(StartTask05, NULL, &myTask05_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
 }
-
-
 
 /* USER CODE BEGIN Header_StartDefaultTask */
 /**
@@ -149,17 +161,17 @@ void StartDefaultTask(void *argument)
   MX_LWIP_Init();
 
   /* USER CODE BEGIN StartDefaultTask */
+  ev_clear();
 
   /* Infinite loop */
   for(;;)
   {
     HAL_ADC_Start_IT(&hadc1);
+    ev_checking();
     osDelay(100);
   }
   /* USER CODE END StartDefaultTask */
 }
-
-
 
 /* USER CODE BEGIN Header_StartTask02 */
 /**
@@ -180,8 +192,6 @@ void StartTask02(void *argument)
   /* USER CODE END StartTask02 */
 }
 
-
-
 /* USER CODE BEGIN Header_StartTask03 */
 /**
 * @brief Function implementing the taskTTUdp thread.
@@ -201,8 +211,6 @@ void StartTask03(void *argument)
   /* USER CODE END StartTask03 */
 }
 
-
-
 /* USER CODE BEGIN Header_StartTask04 */
 /**
 * @brief Function implementing the myTask04 thread.
@@ -213,17 +221,32 @@ void StartTask03(void *argument)
 void StartTask04(void *argument)
 {
   /* USER CODE BEGIN StartTask04 */
-  ev_clear();
+  bl();
   /* Infinite loop */
   for(;;)
   {
-    ev_checking();
-    osDelay(1);
+    osDelay(100);
   }
   /* USER CODE END StartTask04 */
 }
 
-
+/* USER CODE BEGIN Header_StartTask05 */
+/**
+* @brief Function implementing the myTask05 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTask05 */
+void StartTask05(void *argument)
+{
+  /* USER CODE BEGIN StartTask05 */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartTask05 */
+}
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */

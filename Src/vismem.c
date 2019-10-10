@@ -17,7 +17,7 @@
 
 #include "leds.h"
 
-
+#include "main.h"
 #include "vismem.h"
 
 
@@ -68,7 +68,7 @@ void vismem(void)
 
   ser_addr.sin_family = AF_INET;
   ser_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-  ser_addr.sin_port = htons(8000);
+  ser_addr.sin_port = htons(VIS_PORT);
   ser_len = sizeof (struct sockaddr_in);
   
   // LwIP/src/include/lwip/sockets.h:514:#define bind(s,name,namelen)  lwip_bind(s,name,namelen)

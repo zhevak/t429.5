@@ -17,6 +17,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+#include "main.h"
 #include "adc.h"
 #include "stm32f4xx_it.h"
 #include "leds.h"
@@ -59,7 +60,7 @@ void tt_udp(void)
 
   ser_addr.sin_family = AF_INET;
   ser_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-  ser_addr.sin_port = htons(8001);
+  ser_addr.sin_port = htons(TT_PORT);
   ser_len = sizeof (struct sockaddr_in);
 
  
