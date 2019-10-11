@@ -238,7 +238,6 @@ C_INCLUDES =  \
 -IMiddlewares/Third_Party/LwIP/src/include/netif \
 -IMiddlewares/Third_Party/LwIP/system/arch \
 -IDrivers/CMSIS/Include \
--IMiddlewares/Third_Party/open62541 \
 -IMiddlewares/Third_Party/LwIP/src/include/posix \
 -IMiddlewares/Third_Party/LwIP/src/include/posix/sys
 

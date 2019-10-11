@@ -47,6 +47,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
+QueueHandle_t queueEv
 /* USER CODE END Variables */
 osThreadId_t defaultTaskHandle;
 osThreadId_t myTask02Handle;
@@ -55,7 +56,6 @@ osThreadId_t myTask04Handle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
-   
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
