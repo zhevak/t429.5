@@ -14,7 +14,7 @@
 #define __TASK_OPC_H__
 
 
-void opc(void *argument);
+void opc(void);
 
 
 #endif  // __TASK_OPC_H__

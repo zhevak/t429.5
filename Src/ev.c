@@ -18,12 +18,24 @@ static bool ev1;
 static bool ev2;
 
 
+xQueueHandle xQueue;
+
+
 void ev_clear(void)
 {
   ev1 = false;
   ev2 = false;   
   gled_off();
   rled_off();
+  
+  xQueue = xQueueCreate(5, sizeof (long));
+  if (xQueue != NULL)
+  { // OK
+    
+  }
+  else
+  { // Problem
+  }
 }
 
 

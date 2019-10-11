@@ -144,13 +144,16 @@ Middlewares/Third_Party/LwIP/src/core/ipv6/nd6.c \
 Middlewares/Third_Party/LwIP/system/OS/sys_arch.c \
 Middlewares/Third_Party/LwIP/src/apps/mqtt/mqtt.c \
 Src/leds.c \
-Src/vismem.c \
-Src/tt_udp.c \
-Src/bl.c \
-Src/ev.c \
+Src/opc.c \
 Src/adc.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c
+
+
+#Src/vismem.c \
+#Src/tt_udp.c \
+#Src/bl.c \
+#Src/ev.c \
 
 
 #Middlewares/Third_Party/open62541/open62541.c
@@ -205,15 +208,14 @@ AS_DEFS =
 C_DEFS =  \
 -DUSE_HAL_DRIVER \
 -DSTM32F429xx \
--DLWIP_COMPAT_SOCKETS=2 \
+-DLWIP_COMPAT_SOCKETS=0 \
 -DLWIP_DNS \
 -DSO_REUSE \
--DUA_ARCHITECTURE_FREERTOSLWIP
+-DUA_ARCHITECTURE_FREERTOSLWIP \
+-DUA_FREERTOS \
+-DLWIP_SOCKET \
 
-#-DLWIP_SOCKET \
-#-DUA_FREERTOS \
-#-DLWIP_POSIX_SOCKETS_IO_NAMES
-#-DUA_ARCHITECTURE_FREERTOSLWIP \
+#-DLWIP_POSIX_SOCKETS_IO_NAMES \
 
 
 # AS includes
@@ -243,8 +245,6 @@ C_INCLUDES =  \
 -IMiddlewares/Third_Party/LwIP/src/include/posix \
 -IMiddlewares/Third_Party/LwIP/src/include/posix/sys
 
-#-IMiddlewares/Third_Party/LwIP/src/include/posix \
-#-IMiddlewares/Third_Party/LwIP/src/include/posix/sys \
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections

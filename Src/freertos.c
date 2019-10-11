@@ -28,13 +28,14 @@
 /* USER CODE BEGIN Includes */     
 #include "adc.h"
 #include "leds.h"
-#include "vismem.h"
-#include "tt_udp.h"
+//#include "vismem.h"
+//#include "tt_udp.h"
 
 // TODO:
-#include "bl.h"
+//#include "bl.h"
+#include "opc.h"
 
-#include "ev.h"
+//#include "ev.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -161,13 +162,13 @@ void StartDefaultTask(void *argument)
   MX_LWIP_Init();
 
   /* USER CODE BEGIN StartDefaultTask */
-  ev_clear();
+  //ev_clear();
 
   /* Infinite loop */
   for(;;)
   {
     HAL_ADC_Start_IT(&hadc1);
-    ev_checking();
+    //ev_checking();
     osDelay(100);
   }
   /* USER CODE END StartDefaultTask */
@@ -183,7 +184,7 @@ void StartDefaultTask(void *argument)
 void StartTask02(void *argument)
 {
   /* USER CODE BEGIN StartTask02 */
-  vismem();
+  //vismem();
   /* Infinite loop */
   for(;;)
   {
@@ -202,7 +203,7 @@ void StartTask02(void *argument)
 void StartTask03(void *argument)
 {
   /* USER CODE BEGIN StartTask03 */
-  tt_udp();
+  //tt_udp();
   /* Infinite loop */
   for(;;)
   {
@@ -221,7 +222,8 @@ void StartTask03(void *argument)
 void StartTask04(void *argument)
 {
   /* USER CODE BEGIN StartTask04 */
-  bl();
+  //bl();
+  opc();
   /* Infinite loop */
   for(;;)
   {
@@ -250,6 +252,9 @@ void StartTask05(void *argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
+// Температура чипа
+uint32_t temperature;
+
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
   if(hadc->Instance == ADC1) //check if the interrupt comes from ACD1

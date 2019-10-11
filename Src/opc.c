@@ -10,12 +10,14 @@
 */
 
 
+
+#include "leds.h"
 #include "open62541.h"
 
-#include "task_opc.h"
+#include "opc.h"
 
 
-void opc(void *argument)
+void opc(void)
 {
   /* USER CODE BEGIN StartTask02 */
 
@@ -29,7 +31,7 @@ void opc(void *argument)
   UA_Server *server = UA_Server_new();
   UA_ServerConfig_setDefault(UA_Server_getConfig(server));
 
-/*  
+
   UA_ServerConfig *config = UA_Server_getConfig(server);
   // TODO 2019.09.18 задать IP для сервера
   char ip[] = "172.16.27.126";
@@ -39,20 +41,20 @@ void opc(void *argument)
   UA_ServerConfig_setCustomHostname(config, ua_ip);
   
   UA_ServerConfig_setDefault(config);
-*/  
+  
 
-/*
+
   UA_StatusCode retval = UA_Server_run(server, &running);
   if (retval == 0)
     gled_on();
-*/
+
   while (true)
   {
     rled_toggle();
     osDelay(200);
   }
 
-//UA_Server_delete(server);
+  UA_Server_delete(server);
 
 /*
 #define SVRIP     "172.16.27.179"
