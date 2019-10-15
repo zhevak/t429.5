@@ -30,8 +30,8 @@ void ev_init(void)
 {
   ev1 = false;
   ev2 = false;   
-  gled_off();
-  rled_off();
+//  gled_off();
+//  rled_off();
 }
 
 
@@ -46,22 +46,22 @@ void ev_run(void)
     {
       case ev1_raise:
         ev1 = true;
-        gled_on();
+//        gled_on();
         break;
         
       case ev1_reset:
-        ev1 = true;
-        gled_off();
+        ev1 = false;
+//        gled_off();
         break;
 
       case ev2_raise:
         ev2 = true;
-        rled_on();
+//        rled_on();
         break;
         
       case ev2_reset:
-        ev2 = true;
-        gled_off();
+        ev2 = false;
+//        rled_off();
         break;
         
       default:

@@ -168,7 +168,7 @@ void StartDefaultTask(void *argument)
   
     if (HAL_GPIO_ReadPin(BTN3_GPIO_Port, BTN3_Pin) == GPIO_PIN_RESET)
     {
-      uint32_t event = ev1_raise;
+      uint32_t event = ev2_raise;
       xQueueSendToBack(queueEv, &event, 0);
     }
     
