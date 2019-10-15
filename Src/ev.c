@@ -10,15 +10,23 @@
 */
 
 
+#include "FreeRTOS.h"
+#include "queue.h"
+
 #include "leds.h"
 #include "ev.h"
+
+
+
+QueueHandle_t queueEv;
 
 
 static bool ev1;
 static bool ev2;
 
 
-void ev_clear(void)
+
+void ev_init(void)
 {
   ev1 = false;
   ev2 = false;   
@@ -27,24 +35,41 @@ void ev_clear(void)
 }
 
 
-/**
- * ev_checking()
- * Проверка состояния кнопок (Кнопки эмулируют события)
-*/
-void ev_checking(void)
+
+void ev_run(void)
 {
-  if (HAL_GPIO_ReadPin(BTN2_GPIO_Port, BTN2_Pin) == GPIO_PIN_RESET)
+  int32_t msg;
+
+  if (xQueueReceive(queueEv, &msg, portMAX_DELAY) == pdPASS)
   {
-    ev1 = true;
-    gled_on();
-  }
-  
-  if (HAL_GPIO_ReadPin(BTN3_GPIO_Port, BTN3_Pin) == GPIO_PIN_RESET)
-  {
-    ev2 = true;
-    rled_on();
+    switch ((event_t) msg)
+    {
+      case ev1_raise:
+        ev1 = true;
+        gled_on();
+        break;
+        
+      case ev1_reset:
+        ev1 = true;
+        gled_off();
+        break;
+
+      case ev2_raise:
+        ev2 = true;
+        rled_on();
+        break;
+        
+      case ev2_reset:
+        ev2 = true;
+        gled_off();
+        break;
+        
+      default:
+        break;
+    }
   }
 }
+
 
 
 bool ev_is1(void)

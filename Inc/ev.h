@@ -15,8 +15,13 @@
 
 
 
-void ev_clear(void);
-void ev_checking(void);
+typedef enum {ev1_reset, ev1_raise, ev2_reset, ev2_raise} event_t;
+
+QueueHandle_t queueEv;
+
+
+void ev_init(void);
+void ev_run(void);
 bool ev_is1(void);
 bool ev_is2(void);
 

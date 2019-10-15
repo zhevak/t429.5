@@ -20,6 +20,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
+#include "queue.h"
 #include "task.h"
 #include "main.h"
 #include "cmsis_os.h"
@@ -47,8 +48,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-QueueHandle_t queueEv
 /* USER CODE END Variables */
+
 osThreadId_t defaultTaskHandle;
 osThreadId_t myTask02Handle;
 osThreadId_t taskTTUdpHandle;
@@ -91,6 +92,12 @@ osKernelInitialize();
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
+  queueEv = xQueueCreate(5, sizeof (int32_t));
+  if (queueEv == NULL)
+  { // Не возможно создать очередь
+    return;
+  }
+  
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -152,6 +159,19 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     HAL_ADC_Start_IT(&hadc1);
+
+    if (HAL_GPIO_ReadPin(BTN2_GPIO_Port, BTN2_Pin) == GPIO_PIN_RESET)
+    {
+      uint32_t event = ev1_raise;
+      xQueueSendToBack(queueEv, &event, 0);
+    }
+  
+    if (HAL_GPIO_ReadPin(BTN3_GPIO_Port, BTN3_Pin) == GPIO_PIN_RESET)
+    {
+      uint32_t event = ev1_raise;
+      xQueueSendToBack(queueEv, &event, 0);
+    }
+    
     osDelay(100);
   }
   /* USER CODE END StartDefaultTask */
@@ -205,12 +225,12 @@ void StartTask03(void *argument)
 void StartTask04(void *argument)
 {
   /* USER CODE BEGIN StartTask04 */
-  ev_clear();
+  ev_init();
   /* Infinite loop */
   for(;;)
   {
-    ev_checking();
-    osDelay(1);
+    ev_run();
+    taskYIELD();
   }
   /* USER CODE END StartTask04 */
 }
